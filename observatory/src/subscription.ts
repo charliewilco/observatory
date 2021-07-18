@@ -2,6 +2,7 @@ import { ObservableLike } from "./observable";
 
 export interface ISubscription<T> {
   unsubscribe(): void;
+  state: SubscriptionState;
   next: NextHandler<T>;
   error: ErrorHandler;
   done: DoneHandler;

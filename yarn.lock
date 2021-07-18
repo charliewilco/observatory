@@ -337,13 +337,6 @@
   resolved "https://registry.yarnpkg.com/@charliewilco/iterable-lists/-/iterable-lists-0.1.3.tgz#02f6809f25510f3cea1ac6d1210ed189fb2a9eec"
   integrity sha512-nddCrKyyLUsjoMmIjOlQp+zJO6VBzfCzm+llSjjCLL0on0XleeTG3DZiCpGJzkxQqbhejYoXb2f+H/ZzX2jqhA==
 
-"@charliewilco/observatory@latest":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@charliewilco/observatory/-/observatory-0.1.1.tgz#c7f6462eace98c085c9b868b98c6b6cd888c8a41"
-  integrity sha512-sylD7U5XS3CGhAPUf/VAK3xYal51N2ThzjIaHYBGgxwLcvyEQUiV/vYFEPUETlZFMZddr0KVLYvzW52V/g5xAw==
-  dependencies:
-    "@charliewilco/iterable-lists" "^0.1.3"
-
 "@hapi/accept@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"

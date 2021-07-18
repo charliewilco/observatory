@@ -12,7 +12,8 @@
     "prepublish": "yarn build",
     "prebuild": "rm -rf dist",
     "build": "rollup -c",
-    "test": "jest"
+    "test": "jest",
+    "dev": "rollup -c --watch"
   },
   "dependencies": {
     "@charliewilco/iterable-lists": "^0.1.3"

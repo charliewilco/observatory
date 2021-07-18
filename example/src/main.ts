@@ -1,6 +1,13 @@
 import { Observable } from "@charliewilco/observatory";
-const app = document.querySelector<HTMLDivElement>("#app")!;
 
-const m = new Observable();
+const n = new Observable<string>();
 
-console.log(app, m);
+n.subscribe({
+  onNext: (value) => console.log(value, "onNext", "subscription one"),
+});
+n.subscribe({
+  onNext: (value) => console.log(value, "onNext", "subcription two"),
+});
+
+n.next("Hello");
+n.next("...again");
