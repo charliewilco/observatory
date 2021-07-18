@@ -1,6 +1,7 @@
 {
   "name": "@charliewilco/observatory",
   "license": "Unlicense",
+  "version": "0.1.2",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
@@ -28,6 +29,5 @@
   },
   "jest": {
     "preset": "ts-jest"
-  },
-  "version": "0.1.2"
+  }
 }
