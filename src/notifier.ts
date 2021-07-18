@@ -1,4 +1,4 @@
-import { Queue, IListLike } from "./queue";
+import { Queue, IListLike } from "@charliewilco/iterable-lists";
 import { ISubscription } from "./subscription";
 
 type NotificationType<T> = Exclude<keyof ISubscription<T>, "unsubscribe">;
@@ -10,7 +10,7 @@ interface Notification<T> {
 }
 
 export class SubscriptionNotifier<T> {
-  private _queue: IListLike<Notification<T>>;
+  private _queue: Queue<Notification<T>>;
   constructor() {
     this._queue = new Queue();
   }

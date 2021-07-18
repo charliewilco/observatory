@@ -1,19 +1,23 @@
-<h1 align="center">ES Module Defaults for TypeScript Libs</h1>
+<h1 align="center">Observatory</h1>
 
-Uses prettier, rollup, esbuild and vite for the example.
+An observable library
 
 ## Install
 
 ```sh
-yarn add @charliewilco/module
+yarn add @charliewilco/observatory
 ```
 
 ## Usage
 
 ```ts
-import { SomeClass } from "@charliewilco/module";
+import { Observable } from "@charliewilco/observatory";
 
-const c = new SomeClass();
+const n = new Observable<string>();
 
-c.useMethod();
+n.subscribe({ onNext: (nextValue) => console.log(nextValue) });
+
+n.next("Hello");
+
+// Console: "hello"
 ```
