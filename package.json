@@ -1,15 +1,22 @@
 {
-  "name": "@charliewilco/esm",
+  "name": "@charliewilco/observatory",
   "license": "Unlicense",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
+    "prepublish": "yarn build",
     "prebuild": "rm -rf dist",
     "build": "rollup -c",
     "test": "jest",
     "example": "vite example --config example/vite.config.js",
     "vercel-build": "vite build example --outDir ../public --config example/vite.config.js"
+  },
+  "dependencies": {
+    "@charliewilco/iterable-lists": "^0.1.3"
   },
   "devDependencies": {
     "esbuild": "^0.12.15",
@@ -31,5 +38,6 @@
   },
   "jest": {
     "preset": "ts-jest"
-  }
+  },
+  "version": "0.0.0"
 }
