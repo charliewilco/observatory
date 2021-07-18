@@ -5,19 +5,19 @@
         "example",
         "docs"
     ],
+    "scripts": {
+        "build": "yarn workspaces run build",
+        "test": "yarn workspace @charliewilco/observatory run test",
+        "nudge": "yarn workspace @charliewilco/observatory version"
+    },
+    "devDependencies": {
+        "prettier": "^2.3.2"
+    },
     "prettier": {
         "printWidth": 95,
         "singleQuote": false,
         "semi": true,
         "bracketSpacing": true,
         "jsxBracketSameLine": true
-    },
-    "devDependencies": {
-        "prettier": "^2.3.2"
-    },
-    "scripts": {
-        "build": "yarn workspaces run build",
-        "test": "yarn workspace @charliewilco/observatory run test"
-    },
-    "version": "0.0.0"
+    }
 }

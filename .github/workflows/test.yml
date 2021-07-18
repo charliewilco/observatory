@@ -14,7 +14,7 @@ jobs:
           version: 14.x
       - name: Install Dependencies & Build
         run: |
-          yarn install  --frozen-lockfile
+          yarn install --frozen-lockfile
           yarn build
       - name: Test
         run: yarn test
