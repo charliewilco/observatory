@@ -1,6 +1,6 @@
-import { FakeMapper } from "../../src";
+import { Observable } from "../../src";
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
-const m = new FakeMapper().set("#app", app);
+const m = new Observable();
 
 console.log(m);
