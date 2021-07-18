@@ -17,6 +17,7 @@
     },
     "scripts": {
         "build": "yarn workspaces run build",
-        "test" : "yarn workspace @charliewilco/observatory run test"
-    }
+        "test": "yarn workspace @charliewilco/observatory run test"
+    },
+    "version": "0.0.0"
 }
