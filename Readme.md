@@ -1,6 +1,6 @@
-<h1 align="center">Observatory</h1>
+<h1 align="center">🔭 Observatory</h1>
 
-An observable library
+An observable library, full typed and ES Module ready.
 
 ## Install
 

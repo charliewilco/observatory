@@ -11,3 +11,19 @@ n.subscribe({
 
 n.next("Hello");
 n.next("...again");
+
+const __n = new Observable<number>();
+
+const value: number[] = [];
+
+__n.subscribe({
+  onNext(nextValue) {
+    value.push(nextValue);
+  },
+});
+
+__n.next(0);
+__n.next(4);
+__n.next(5);
+
+console.log(...value);
