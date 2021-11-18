@@ -10,8 +10,10 @@ export class Observable<T> implements ObservableLike<T> {
   private readonly _subscribers: Set<ISubscription<T>> = new Set();
   private _notification = new SubscriptionNotifier<T>();
 
-  static from<U>(value: U) {
+  static from<U>(value: U): Observable<U> {
     let C = typeof this === "function" ? this : Observable;
+
+    return new Observable();
   }
 
   static isObservable<V extends unknown>(x: any): x is ObservableLike<V> {

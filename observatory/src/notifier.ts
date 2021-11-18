@@ -1,8 +1,6 @@
 import { Queue } from "@charliewilco/iterable-lists";
 import { ISubscription, SubscriptionState } from "./subscription";
 
-type NotificationType<T> = Exclude<keyof ISubscription<T>, "unsubscribe">;
-
 type Notification<T> =
   | {
       subscription: ISubscription<T>;
@@ -19,19 +17,18 @@ type Notification<T> =
       value: unknown;
     };
 
-export class SubscriptionNotifier<T> {
-  private _queue: Queue<Notification<T>>;
+export class SubscriptionNotifier<T> extends Queue<Notification<T>> {
   constructor() {
-    this._queue = new Queue();
+    super();
   }
 
-  public enqueue(notification: Notification<T>) {
-    this._queue.add(notification);
+  public enqueue(notification: Notification<T>): void {
+    this.add(notification);
   }
 
-  public flush() {
-    while (this._queue.size > 0) {
-      const notification = this._queue.remove();
+  public flush(): void {
+    while (this.size > 0) {
+      const notification = this.remove();
       if (notification) {
         notification.subscription.state = SubscriptionState.RUNNING;
         switch (notification.type) {

@@ -6,7 +6,7 @@ describe("Observable", () => {
     const n = new Observable();
 
     const subscription = n.subscribe({
-      onNext: (value) => console.log(value),
+      onNext: jest.fn(),
       onError: (err) => console.error(err),
       onDone: () => {
         console.log("Done");
