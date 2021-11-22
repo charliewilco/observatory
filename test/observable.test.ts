@@ -3,7 +3,7 @@ import { Observable } from "../src";
 
 describe("Observable", () => {
   it("creates subscription", () => {
-    const n = new Observable();
+    const n = new Observable<any>();
 
     const subscription = n.subscribe({
       onNext: (value) => console.log(value),

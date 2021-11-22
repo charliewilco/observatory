@@ -17,4 +17,4 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
       - name: Test
-        run: yarn test
+        run: yarn test:ci

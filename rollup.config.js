@@ -1,7 +1,9 @@
+// @ts-check
+import { defineConfig } from "rollup";
 import dts from "rollup-plugin-dts";
 import esbuild from "rollup-plugin-esbuild";
 
-export default [
+export default defineConfig([
   {
     input: "src/index.ts",
     external: (id) => !/^[./]/.test(id),
@@ -28,4 +30,4 @@ export default [
       format: "es",
     },
   },
-];
+]);
