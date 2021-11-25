@@ -1,14 +1,15 @@
 import { SubscriptionNotifier } from "./notifier";
-import { Subscription, ISubscription, Observer } from "./subscription";
+import { Subscription } from "./subscription";
+import type { ISubscription, IObserver } from "./subscription";
 
 export interface ObservableLike<T> {
-  subscribe(observer: Observer<T>): ISubscription<T>;
+  subscribe(observer: IObserver<T>): ISubscription<T>;
   remove(ref: ISubscription<T>): void;
 }
 
 export class Observable<T> implements ObservableLike<T> {
-  private readonly _subscribers: Set<ISubscription<T>> = new Set();
-  private _notification = new SubscriptionNotifier<T>();
+  readonly #subscribers: Set<ISubscription<T>> = new Set();
+  #notification = new SubscriptionNotifier<T>();
 
   static from<U>(value: U) {
     let C = typeof this === "function" ? this : Observable;
@@ -18,55 +19,55 @@ export class Observable<T> implements ObservableLike<T> {
     return x instanceof Observable;
   }
 
-  public get subscriptions(): number {
-    return this._subscribers.size;
+  get subscriptions(): number {
+    return this.#subscribers.size;
   }
 
-  public UNSAFE_clear() {
-    this._subscribers.clear();
+  UNSAFE_clear() {
+    this.#subscribers.clear();
   }
 
-  public remove(ref: ISubscription<T>) {
-    this._subscribers.delete(ref);
+  remove(ref: ISubscription<T>) {
+    this.#subscribers.delete(ref);
   }
 
-  public subscribe(observer: Observer<T>) {
+  subscribe(observer: IObserver<T>) {
     const ref: ISubscription<T> = new Subscription(observer, this);
 
-    this._subscribers.add(ref);
+    this.#subscribers.add(ref);
     return ref;
   }
 
-  public done() {
-    this._subscribers.forEach((subscription) => {
-      this._notification.enqueue({
+  done() {
+    this.#subscribers.forEach((subscription) => {
+      this.#notification.enqueue({
         subscription,
         type: "done",
       });
     });
   }
 
-  public error(err: unknown) {
-    this._subscribers.forEach((subscription) => {
-      this._notification.enqueue({
+  error(err: unknown) {
+    this.#subscribers.forEach((subscription) => {
+      this.#notification.enqueue({
         subscription,
         type: "error",
         value: err,
       });
     });
 
-    this._notification.flush();
+    this.#notification.flush();
   }
 
-  public next(value: T) {
-    this._subscribers.forEach((subscription) => {
-      this._notification.enqueue({
+  next(value: T) {
+    this.#subscribers.forEach((subscription) => {
+      this.#notification.enqueue({
         subscription,
         type: "next",
         value,
       });
     });
 
-    this._notification.flush();
+    this.#notification.flush();
   }
 }
