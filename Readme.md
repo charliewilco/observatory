@@ -75,13 +75,57 @@ observable.subscribe({
 });
 ```
 
+### `ObservableBridge.create(object)`
+
+Creates a shallow proxy bridge around an object. Mutating the returned proxy emits ordered change records.
+
+```ts
+import { ObservableBridge } from "@charliewilco/observatory";
+
+const bridge = ObservableBridge.create({ count: 0 });
+
+bridge.subscribe({
+  onNext: (change) => {
+    console.log(change.type, change.property, change.value);
+  },
+});
+
+bridge.proxy.count = 1;
+delete bridge.proxy.count;
+bridge.close();
+```
+
+Change records include:
+
+- `type`: `"set"` or `"delete"`
+- `property`: the changed property key
+- `previousValue`: the value before the mutation
+- `value`: the value after the mutation
+- `target`: the live proxy
+- `snapshot`: a shallow copy after the mutation
+
+### `Queue`
+
+A small first-in, first-out queue used internally by the notifier and bridge. It is exported for consumers that need the same ordered delivery primitive.
+
+```ts
+import { Queue } from "@charliewilco/observatory";
+
+const queue = new Queue(["a"]);
+
+queue.enqueue("b");
+queue.dequeue(); // "a"
+queue.drain(); // ["b"]
+```
+
 ## Development
 
 ```sh
 npm install
 npm run typecheck
 npm test
+npm run test:coverage
 npm run build
 ```
 
-The test suite uses Node's built-in test runner and runs against the built package output.
+The test suite uses Node's built-in test runner and runs against the built package output. Coverage is required to stay at 100% for lines, branches, and functions.

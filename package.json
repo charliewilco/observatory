@@ -26,7 +26,7 @@
     "dev": "rolldown -c --watch",
     "typecheck": "tsc --noEmit",
     "test": "npm run build && node --test",
-    "test:coverage": "npm run build && node --test --experimental-test-coverage --test-coverage-include=dist/index.js",
+    "test:coverage": "npm run build && node --test --experimental-test-coverage --test-coverage-include=dist/index.js --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

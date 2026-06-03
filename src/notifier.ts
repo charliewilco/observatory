@@ -1,3 +1,4 @@
+import { Queue } from "./queue";
 import type { ISubscription } from "./subscription";
 
 /**
@@ -23,21 +24,21 @@ type Notification<T> =
  * Synchronously queues and flushes subscription notifications.
  */
 export class SubscriptionNotifier<T> {
-  private readonly _queue: Notification<T>[] = [];
+  private readonly _queue = new Queue<Notification<T>>();
 
   /**
    * Add a notification to the end of the delivery queue.
    */
   public enqueue(notification: Notification<T>): void {
-    this._queue.push(notification);
+    this._queue.enqueue(notification);
   }
 
   /**
    * Deliver all queued notifications in insertion order.
    */
   public flush(): void {
-    while (this._queue.length > 0) {
-      const notification = this._queue.shift();
+    while (!this._queue.isEmpty) {
+      const notification = this._queue.dequeue();
 
       if (notification) {
         switch (notification.type) {

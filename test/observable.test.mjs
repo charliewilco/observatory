@@ -14,6 +14,15 @@ describe("Observable", () => {
     assert.equal(observable.subscriptions, 1);
   });
 
+  it("supports manual subscription state updates", () => {
+    const observable = new Observable();
+    const subscription = observable.subscribe({});
+
+    subscription.state = SubscriptionState.INITIALIZING;
+
+    assert.equal(subscription.state, SubscriptionState.INITIALIZING);
+  });
+
   it("sends next values to every subscriber", () => {
     const observable = new Observable();
     const firstValues = [];
@@ -117,6 +126,30 @@ describe("Observable", () => {
     assert.equal(observable.subscriptions, 0);
     assert.deepEqual(doneCalls, []);
   });
+
+  it("can run a custom synchronous producer", () => {
+    const error = new Error("producer");
+    const observable = new Observable((observer) => {
+      observer.onNext?.("value");
+      observer.onError?.(error);
+      observer.onDone?.();
+    });
+    const values = [];
+    const errors = [];
+    const doneCalls = [];
+
+    const subscription = observable.subscribe({
+      onNext: (value) => values.push(value),
+      onError: (err) => errors.push(err),
+      onDone: () => doneCalls.push("done"),
+    });
+
+    assert.deepEqual(values, ["value"]);
+    assert.deepEqual(errors, [error]);
+    assert.deepEqual(doneCalls, ["done"]);
+    assert.equal(subscription.state, SubscriptionState.CLOSED);
+    assert.equal(observable.subscriptions, 0);
+  });
 });
 
 describe("Observable static helpers", () => {
@@ -136,6 +169,7 @@ describe("Observable static helpers", () => {
     };
 
     assert.equal(Observable.isObservable("foo"), false);
+    assert.equal(Observable.isObservable(null), false);
     assert.equal(Observable.isObservable(["foo", "bar", "baz"]), false);
     assert.equal(Observable.isObservable(observable), true);
     assert.equal(Observable.isObservable(observableLike), true);
