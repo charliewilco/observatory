@@ -1,4 +1,4 @@
-import { ObservableLike } from "./observable";
+import type { ObservableLike } from "./observable";
 
 export interface ISubscription<T> {
   unsubscribe(): void;
@@ -25,10 +25,10 @@ export enum SubscriptionState {
 }
 
 export class Subscription<T> implements ISubscription<T> {
-  private _state: SubscriptionState = SubscriptionState.INITIALIZING;
-  private _observable: ObservableLike<T>;
-  private _observer: Observer<T>;
-  //   private _queue: Queue<K> = new Queue();
+  private _state: SubscriptionState = SubscriptionState.RUNNING;
+  private readonly _observable: ObservableLike<T>;
+  private readonly _observer: Observer<T>;
+
   constructor(observer: Observer<T>, observable: ObservableLike<T>) {
     this._observable = observable;
     this._observer = observer;
@@ -42,26 +42,43 @@ export class Subscription<T> implements ISubscription<T> {
     this._state = state;
   }
 
-  public next(value: T) {
+  public next(value: T): void {
+    if (this.state === SubscriptionState.CLOSED) {
+      return;
+    }
+
     if (this._observer.onNext) {
       this._observer.onNext(value);
     }
   }
 
-  public error(err: unknown) {
+  public error(err: unknown): void {
+    if (this.state === SubscriptionState.CLOSED) {
+      return;
+    }
+
     if (this._observer.onError) {
       this._observer.onError(err);
     }
   }
 
-  public done() {
+  public done(): void {
+    if (this.state === SubscriptionState.CLOSED) {
+      return;
+    }
+
+    this.state = SubscriptionState.CLOSED;
+
     if (this._observer.onDone) {
       this._observer.onDone();
     }
   }
 
   public unsubscribe(): void {
-    this.done();
-    this._observable.remove(this);
+    try {
+      this.done();
+    } finally {
+      this._observable.remove(this);
+    }
   }
 }

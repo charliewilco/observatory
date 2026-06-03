@@ -1,11 +1,11 @@
-<h1 align="center">🔭 Observatory</h1>
+# Observatory
 
-An observable library, full typed and ES Module ready.
+A small typed observable library with ESM and CommonJS builds.
 
 ## Install
 
 ```sh
-yarn add @charliewilco/observatory
+npm install @charliewilco/observatory
 ```
 
 ## Usage
@@ -13,11 +13,75 @@ yarn add @charliewilco/observatory
 ```ts
 import { Observable } from "@charliewilco/observatory";
 
-const n = new Observable<string>();
+const observable = new Observable<string>();
 
-n.subscribe({ onNext: (nextValue) => console.log(nextValue) });
+const subscription = observable.subscribe({
+  onNext: (value) => console.log(value),
+  onError: (error) => console.error(error),
+  onDone: () => console.log("done"),
+});
 
-n.next("Hello");
+observable.next("Hello");
+observable.done();
 
-// Console: "hello"
+subscription.unsubscribe();
 ```
+
+## API
+
+### `new Observable<T>()`
+
+Creates an observable that can receive values through `next`, errors through `error`, and completion through `done`.
+
+```ts
+const observable = new Observable<number>();
+const values: number[] = [];
+
+observable.subscribe({ onNext: (value) => values.push(value) });
+observable.next(1);
+observable.next(2);
+```
+
+### `subscribe(observer)`
+
+Adds an observer and returns a subscription. Calling `unsubscribe()` removes the subscription and calls its `onDone` handler once.
+
+```ts
+const subscription = observable.subscribe({
+  onNext: (value) => console.log(value),
+});
+
+subscription.unsubscribe();
+```
+
+### `done()`
+
+Completes the observable, notifies current subscribers, and clears all subscriptions.
+
+### `error(error)`
+
+Notifies current subscribers of an error. Subscriptions remain active.
+
+### `Observable.from(source)`
+
+Creates a synchronous observable from a single value or an iterable. If the source is already observable-like, it is returned unchanged.
+
+```ts
+const observable = Observable.from(["a", "b", "c"]);
+
+observable.subscribe({
+  onNext: (value) => console.log(value),
+  onDone: () => console.log("done"),
+});
+```
+
+## Development
+
+```sh
+npm install
+npm run typecheck
+npm test
+npm run build
+```
+
+The test suite uses Node's built-in test runner and runs against the built package output.

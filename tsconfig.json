@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "module": "commonjs",
-    "target": "esnext",
-    "lib": ["es2017", "dom"],
+    "module": "esnext",
+    "target": "es2022",
+    "lib": ["es2022", "dom"],
     "sourceMap": true,
     "allowJs": false,
     "declaration": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "declarationMap": true,
+    "moduleResolution": "bundler",
     "rootDir": "src",
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
