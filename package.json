@@ -19,26 +19,22 @@
   "scripts": {
     "prepack": "npm run build",
     "clean": "rm -rf dist coverage",
-    "prebuild": "rm -rf dist",
-    "build": "npm run build:js && npm run build:types",
+    "build": "npm run clean && npm run build:js && npm run build:types",
     "build:js": "rolldown -c",
     "build:types": "tsc --emitDeclarationOnly && node scripts/rewrite-declaration-imports.mjs",
     "dev": "rolldown -c --watch",
     "typecheck": "tsc --noEmit",
-    "test": "npm run build && node --disable-warning=ExperimentalWarning --experimental-transform-types --test",
-    "test:coverage": "npm run build && node --disable-warning=ExperimentalWarning --experimental-transform-types --test --experimental-test-coverage --test-coverage-include=src/**/*.ts --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "test": "npm run build && npm run test:run",
+    "test:run": "node --disable-warning=ExperimentalWarning --experimental-transform-types --test",
+    "test:coverage": "npm run build && npm run test:run -- --experimental-test-coverage '--test-coverage-include=src/**/*.ts' --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100",
+    "pack:dry-run": "npm pack --dry-run",
+    "check": "npm run format:check && npm run typecheck && npm run test:coverage && npm run pack:dry-run",
+    "format": "biome format --write .",
+    "format:check": "biome ci ."
   },
   "devDependencies": {
-    "prettier": "^3.8.3",
+    "@biomejs/biome": "^2.4.16",
     "rolldown": "^1.0.3",
     "typescript": "^6.0.3"
-  },
-  "prettier": {
-    "printWidth": 95,
-    "singleQuote": false,
-    "semi": true,
-    "bracketSpacing": true
   }
 }

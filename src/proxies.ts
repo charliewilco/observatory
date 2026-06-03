@@ -45,9 +45,9 @@ export interface ObservableBridgeChange<T extends object> {
 /**
  * Bridges property writes on an object into observable change records.
  */
-export class ObservableBridge<T extends object> implements ObservableLike<
-  ObservableBridgeChange<T>
-> {
+export class ObservableBridge<T extends object>
+  implements ObservableLike<ObservableBridgeChange<T>>
+{
   private readonly _changes = new Observable<ObservableBridgeChange<T>>();
   private readonly _queue = new Queue<ObservableBridgeChange<T>>();
   private readonly _proxy: T;
