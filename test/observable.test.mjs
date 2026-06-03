@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { describe, it } from "node:test";
-import { Observable, SubscriptionState } from "../dist/index.js";
+import { Observable, SubscriptionState } from "../src/index.ts";
 
 describe("Observable", () => {
   it("creates a running subscription", () => {

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { SubscriptionNotifier, SubscriptionState } from "../dist/index.js";
+import { SubscriptionNotifier, SubscriptionState } from "../src/index.ts";
 
 function createSubscription() {
   const values = [];

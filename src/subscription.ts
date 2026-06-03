@@ -1,4 +1,5 @@
-import type { ObservableLike } from "./observable";
+/* node:coverage disable */
+import type { ObservableLike } from "./observable.ts";
 
 /**
  * A handle for receiving notifications from an observable and stopping them.
@@ -64,6 +65,7 @@ export interface Observer<T> {
    */
   onDone?: DoneHandler;
 }
+/* node:coverage enable */
 
 /**
  * Lifecycle states for a subscription.

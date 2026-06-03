@@ -1,5 +1,5 @@
-import { Queue } from "./queue";
-import type { ISubscription } from "./subscription";
+import { Queue } from "./queue.ts";
+import type { ISubscription } from "./subscription.ts";
 
 /**
  * A queued notification waiting to be delivered to a subscription.

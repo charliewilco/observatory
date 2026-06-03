@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { Observable, ObservableBridge, SubscriptionState } from "../dist/index.js";
+import { Observable, ObservableBridge, SubscriptionState } from "../src/index.ts";
 
 describe("ObservableBridge", () => {
   it("creates an observable-like proxy bridge", () => {

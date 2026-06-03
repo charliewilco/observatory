@@ -1,6 +1,6 @@
-import { Observable, type ObservableLike } from "./observable";
-import { Queue } from "./queue";
-import type { ISubscription, Observer } from "./subscription";
+import { Observable, type ObservableLike } from "./observable.ts";
+import { Queue } from "./queue.ts";
+import type { ISubscription, Observer } from "./subscription.ts";
 
 /**
  * The kind of mutation observed by an `ObservableBridge`.

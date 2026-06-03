@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { Queue } from "../dist/index.js";
+import { Queue } from "../src/index.ts";
 
 describe("Queue", () => {
   it("starts empty by default", () => {

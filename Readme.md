@@ -128,4 +128,4 @@ npm run test:coverage
 npm run build
 ```
 
-The test suite uses Node's built-in test runner and runs against the built package output. Coverage is required to stay at 100% for lines, branches, and functions.
+The test suite uses Node's built-in test runner. Behavioral tests run against source files, package smoke tests run against the built output, and source coverage is required to stay at 100% for lines, branches, and functions.

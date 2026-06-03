@@ -1,5 +1,5 @@
-import { SubscriptionNotifier } from "./notifier";
-import { Subscription, type ISubscription, type Observer } from "./subscription";
+import { SubscriptionNotifier } from "./notifier.ts";
+import { Subscription, type ISubscription, type Observer } from "./subscription.ts";
 
 /**
  * A value or producer that can be converted into an observable sequence.
