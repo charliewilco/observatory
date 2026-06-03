@@ -33,7 +33,7 @@
   "devDependencies": {
     "prettier": "^3.8.3",
     "rolldown": "^1.0.3",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "prettier": {
     "printWidth": 95,
