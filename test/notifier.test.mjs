@@ -1,5 +1,6 @@
+// @ts-check
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, test } from "node:test";
 import { SubscriptionNotifier, SubscriptionState } from "../src/index.ts";
 
 function createSubscription() {
@@ -31,13 +32,13 @@ function createSubscription() {
 }
 
 describe("SubscriptionNotifier", () => {
-  it("flushes an empty queue without side effects", () => {
+  test("flushes an empty queue without side effects", () => {
     const notifier = new SubscriptionNotifier();
 
     assert.doesNotThrow(() => notifier.flush());
   });
 
-  it("delivers queued notifications in insertion order", () => {
+  test("delivers queued notifications in insertion order", () => {
     const notifier = new SubscriptionNotifier();
     const first = createSubscription();
     const second = createSubscription();

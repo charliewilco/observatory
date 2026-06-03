@@ -1,10 +1,11 @@
+// @ts-check
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { describe, it } from "node:test";
+import { describe, test } from "node:test";
 import { Observable, SubscriptionState } from "../src/index.ts";
 
 describe("Observable", () => {
-  it("creates a running subscription", () => {
+  test("creates a running subscription", () => {
     const observable = new Observable();
     const subscription = observable.subscribe({});
 
@@ -14,7 +15,7 @@ describe("Observable", () => {
     assert.equal(observable.subscriptions, 1);
   });
 
-  it("supports manual subscription state updates", () => {
+  test("supports manual subscription state updates", () => {
     const observable = new Observable();
     const subscription = observable.subscribe({});
 
@@ -23,7 +24,7 @@ describe("Observable", () => {
     assert.equal(subscription.state, SubscriptionState.INITIALIZING);
   });
 
-  it("sends next values to every subscriber", () => {
+  test("sends next values to every subscriber", () => {
     const observable = new Observable();
     const firstValues = [];
     const secondValues = [];
@@ -39,7 +40,7 @@ describe("Observable", () => {
     assert.equal(observable.subscriptions, 2);
   });
 
-  it("sends errors without closing subscriptions", () => {
+  test("sends errors without closing subscriptions", () => {
     const observable = new Observable();
     const errors = [];
     const values = [];
@@ -59,7 +60,7 @@ describe("Observable", () => {
     assert.equal(observable.subscriptions, 1);
   });
 
-  it("flushes done notifications and clears subscriptions", () => {
+  test("flushes done notifications and clears subscriptions", () => {
     const observable = new Observable();
     const doneCalls = [];
     const values = [];
@@ -81,7 +82,7 @@ describe("Observable", () => {
     assert.equal(observable.subscriptions, 0);
   });
 
-  it("removes a subscription when it is unsubscribed", () => {
+  test("removes a subscription when it is unsubscribed", () => {
     const observable = new Observable();
     const doneCalls = [];
 
@@ -97,7 +98,7 @@ describe("Observable", () => {
     assert.equal(observable.subscriptions, 0);
   });
 
-  it("ignores next and error calls after unsubscribe", () => {
+  test("ignores next and error calls after unsubscribe", () => {
     const observable = new Observable();
     const values = [];
     const errors = [];
@@ -116,7 +117,7 @@ describe("Observable", () => {
     assert.deepEqual(errors, []);
   });
 
-  it("can clear subscriptions without calling done handlers", () => {
+  test("can clear subscriptions without calling done handlers", () => {
     const observable = new Observable();
     const doneCalls = [];
 
@@ -127,7 +128,7 @@ describe("Observable", () => {
     assert.deepEqual(doneCalls, []);
   });
 
-  it("can run a custom synchronous producer", () => {
+  test("can run a custom synchronous producer", () => {
     const error = new Error("producer");
     const observable = new Observable((observer) => {
       observer.onNext?.("value");
@@ -153,7 +154,7 @@ describe("Observable", () => {
 });
 
 describe("Observable static helpers", () => {
-  it("recognizes Observable-like values", () => {
+  test("recognizes Observable-like values", () => {
     const observable = new Observable();
     const observableLike = {
       subscribe() {
@@ -175,13 +176,13 @@ describe("Observable static helpers", () => {
     assert.equal(Observable.isObservable(observableLike), true);
   });
 
-  it("returns Observable-like values unchanged from from()", () => {
+  test("returns Observable-like values unchanged from from()", () => {
     const observable = new Observable();
 
     assert.equal(Observable.from(observable), observable);
   });
 
-  it("creates a synchronous observable from one value", () => {
+  test("creates a synchronous observable from one value", () => {
     const observable = Observable.from("hello");
     const values = [];
     const doneCalls = [];
@@ -197,7 +198,7 @@ describe("Observable static helpers", () => {
     assert.equal(observable.subscriptions, 0);
   });
 
-  it("creates a synchronous observable from an iterable", () => {
+  test("creates a synchronous observable from an iterable", () => {
     const observable = Observable.from(new Set(["a", "b", "c"]));
     const values = [];
 
@@ -208,7 +209,7 @@ describe("Observable static helpers", () => {
 });
 
 describe("package output", () => {
-  it("can be loaded through CommonJS", () => {
+  test("can be loaded through CommonJS", () => {
     const require = createRequire(import.meta.url);
     const cjs = require("../dist/index.cjs");
 

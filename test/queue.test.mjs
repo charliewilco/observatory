@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, test } from "node:test";
 import { Queue } from "../src/index.ts";
 
 describe("Queue", () => {
-  it("starts empty by default", () => {
+  test("starts empty by default", () => {
     const queue = new Queue();
 
     assert.equal(queue.size, 0);
@@ -13,7 +13,7 @@ describe("Queue", () => {
     assert.deepEqual(queue.drain(), []);
   });
 
-  it("can be seeded and iterated without draining", () => {
+  test("can be seeded and iterated without draining", () => {
     const queue = new Queue(["first", "second"]);
 
     assert.equal(queue.size, 2);
@@ -23,7 +23,7 @@ describe("Queue", () => {
     assert.equal(queue.size, 2);
   });
 
-  it("enqueues, dequeues, clears, and drains in insertion order", () => {
+  test("enqueues, dequeues, clears, and drains in insertion order", () => {
     const queue = new Queue();
 
     assert.equal(queue.enqueue("a"), queue);

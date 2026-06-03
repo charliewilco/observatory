@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, test } from "node:test";
 import { Observable, ObservableBridge, SubscriptionState } from "../src/index.ts";
 
 describe("ObservableBridge", () => {
-  it("creates an observable-like proxy bridge", () => {
+  test("creates an observable-like proxy bridge", () => {
     const bridge = ObservableBridge.create({ count: 0 });
     const changes = [];
 
@@ -30,7 +30,7 @@ describe("ObservableBridge", () => {
     assert.equal(changes.length, 1);
   });
 
-  it("does not emit when a property keeps the same value", () => {
+  test("does not emit when a property keeps the same value", () => {
     const bridge = new ObservableBridge({ label: "same" });
     const changes = [];
 
@@ -40,7 +40,7 @@ describe("ObservableBridge", () => {
     assert.deepEqual(changes, []);
   });
 
-  it("emits delete changes only for existing properties", () => {
+  test("emits delete changes only for existing properties", () => {
     const bridge = new ObservableBridge({ label: "gone", other: "kept" });
     const changes = [];
 
@@ -57,7 +57,7 @@ describe("ObservableBridge", () => {
     assert.deepEqual(changes[0].snapshot, { other: "kept" });
   });
 
-  it("uses shallow array snapshots for array proxies", () => {
+  test("uses shallow array snapshots for array proxies", () => {
     const bridge = new ObservableBridge(["a"]);
     const changes = [];
 
@@ -69,7 +69,7 @@ describe("ObservableBridge", () => {
     assert.deepEqual(changes[0].snapshot, ["b"]);
   });
 
-  it("completes subscribers and stops emitting after close", () => {
+  test("completes subscribers and stops emitting after close", () => {
     const bridge = new ObservableBridge({ enabled: true });
     const changes = [];
     const doneCalls = [];
